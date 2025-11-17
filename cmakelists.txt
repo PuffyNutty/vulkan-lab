@@ -1,0 +1,19 @@
+# Run the command 'cmake -S -B build' whilst cd'ed into this file's directory to build the program
+# You need a C++ 20 compiler installed on your system.
+
+cmake_minimum_required(VERSION 3.10.0)
+
+project(VulkanLab)
+
+set(CMAKE_FIND_DEBUG_MODE ON)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin) # The build directory relative to the project's "build" folder.
+
+find_package(SDL3 REQUIRED)
+find_package(Vulkan REQUIRED)
+
+add_executable(${PROJECT_NAME} src/main.cpp )
+
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
+target_link_libraries(${PROJECT_NAME} PRIVATE Vulkan::Vulkan)
