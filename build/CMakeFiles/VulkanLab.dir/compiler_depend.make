@@ -1024,6 +1024,7 @@ CMakeFiles/VulkanLab.dir/src/main.cpp.o: /Users/patrickseweryn/Developer/Project
   /opt/homebrew/include/SDL3/SDL_tray.h \
   /opt/homebrew/include/SDL3/SDL_version.h \
   /opt/homebrew/include/SDL3/SDL_video.h \
+  /opt/homebrew/include/SDL3/SDL_vulkan.h \
   /usr/local/include/vk_video/vulkan_video_codec_av1std.h \
   /usr/local/include/vk_video/vulkan_video_codec_av1std_decode.h \
   /usr/local/include/vk_video/vulkan_video_codec_av1std_encode.h \
@@ -1054,6 +1055,8 @@ CMakeFiles/VulkanLab.dir/src/main.cpp.o: /Users/patrickseweryn/Developer/Project
 /usr/local/include/vk_video/vulkan_video_codec_h264std.h:
 
 /usr/local/include/vk_video/vulkan_video_codec_av1std.h:
+
+/opt/homebrew/include/SDL3/SDL_vulkan.h:
 
 /opt/homebrew/include/SDL3/SDL_video.h:
 
