@@ -34,7 +34,6 @@ public:
     void run()
     {
         _initVulkan();
-        _setUpDebugMessenger();
         _mainLoop();
         _cleanup();
     }
@@ -44,6 +43,8 @@ private:
     {
         _pSDLWindow = SDL_CreateWindow("Vulkan Lab", _windowWidth, _windowHeight, SDL_WINDOW_RESIZABLE | SDL_WINDOW_VULKAN);
         _createVulkanInstance();
+        _setUpDebugMessenger();
+        _pickVisibleDevice();
     }
 
     void _createVulkanInstance()
@@ -65,7 +66,7 @@ private:
         createInfo.pApplicationInfo = &appInfo;
 
         std::vector<const char*> requiredExtensions = _getRequiredExtensions();
-        createInfo.flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
+        createInfo.flags = VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
         createInfo.enabledExtensionCount = uint32_t(requiredExtensions.size());
         createInfo.ppEnabledExtensionNames = requiredExtensions.data();
 
@@ -87,7 +88,6 @@ private:
             std::cout << instanceCreateResult << "\n";
             throw std::runtime_error("Failed to create Vulkan Instance");
         }
-        //vkDestroyInstance(_vulkanInstance, nullptr);
     }
 
     bool _checkValidationLayerSupport()
@@ -167,6 +167,43 @@ private:
     }
 
 
+    void _pickVisibleDevice()
+    {
+        uint32_t deviceCount = 0;
+        vkEnumeratePhysicalDevices(_vulkanInstance, &deviceCount, nullptr);
+        if (deviceCount == 0) {
+            throw std::runtime_error("Failed to find GPU/s with Vulkan support.\n");
+        }
+        std::vector<VkPhysicalDevice> devices(deviceCount);
+        vkEnumeratePhysicalDevices(_vulkanInstance, &deviceCount, devices.data());
+
+        for (const auto& device : devices)
+        {
+            if (_isDeviceSuitable(device)) {
+                _physicalDevice = device;
+                break;
+            }
+        }
+
+        if (_physicalDevice == VK_NULL_HANDLE) {
+            throw std::runtime_error("Failed to define physical device.\n");
+        }
+    }
+
+
+    bool _isDeviceSuitable(VkPhysicalDevice physicalDevice)
+    {
+        return true;
+        /*
+        VkPhysicalDeviceProperties deviceProperties{};
+        VkPhysicalDeviceFeatures deviceFeatures{};
+        vkGetPhysicalDeviceProperties(physicalDevice, &deviceProperties);
+        vkGetPhysicalDeviceFeatures(physicalDevice, &deviceFeatures);
+        std::cout << "device name: " << deviceProperties.deviceName << "\n";
+        */
+    }
+
+
     void _mainLoop()
     {
         SDL_Event event;
@@ -210,6 +247,8 @@ private:
     const bool _enableValidationLayers = false;
 #endif
     VkDebugUtilsMessengerEXT _debugMessenger;
+
+    VkPhysicalDevice _physicalDevice = VK_NULL_HANDLE;
 };
 
 
