@@ -1,6 +1,7 @@
 #define DEBUG_MODE
 
 #include <iostream>
+#include <optional>
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_vulkan.h>
 #include <vulkan/vulkan.hpp>
@@ -26,6 +27,17 @@ void DestroyDebugUtilsMessenger(VkInstance_T* pVkInstance, VkDebugUtilsMessenger
 }
 
 
+struct QueueFamilyIndices
+{
+    std::optional<uint32_t> graphicsFamily;
+
+    bool isComplete()
+    {
+        return graphicsFamily.has_value();
+    }
+};
+
+
 class HelloTriangleApp
 {
 public:
@@ -34,6 +46,7 @@ public:
         _initWindow();
         _initVulkan();
         _setupDebugMessenger();
+        _pickPhysicalDevice();
     }
 
 
@@ -203,6 +216,72 @@ private:
     }
 
 
+    void _pickPhysicalDevice()
+    {
+        uint32_t physicalDeviceCount = 0;
+        vkEnumeratePhysicalDevices(_pVkInstance, &physicalDeviceCount, nullptr);
+        if (physicalDeviceCount == 0) {
+            throw std::runtime_error("Could not find GPU with Vulkan support");
+        }
+        std::vector<VkPhysicalDevice_T*> physicalDevices(physicalDeviceCount);
+        vkEnumeratePhysicalDevices(_pVkInstance, &physicalDeviceCount, physicalDevices.data());
+
+        for (VkPhysicalDevice_T* pDevice : physicalDevices) {
+            if (_isPhysicalDeviceSuitable(pDevice)) {
+                _pPhysicalDevice = pDevice; // Find first suitable device in the vector.
+                break;
+            }
+        }
+        if (_pPhysicalDevice == VK_NULL_HANDLE) {
+            throw std::runtime_error("The Vulkan-supported GPU is not suitable.");
+        }
+    }
+
+
+    bool _isPhysicalDeviceSuitable(VkPhysicalDevice_T* pDevice)
+    {
+        VkPhysicalDeviceProperties deviceProperties{};
+        vkGetPhysicalDeviceProperties(pDevice, &deviceProperties);
+        VkPhysicalDeviceFeatures deviceFeatures{};
+        vkGetPhysicalDeviceFeatures(pDevice, &deviceFeatures);
+
+        std::cout << "\n GPU Properties:\n";
+        std::cout << "\t" << "API version: " << deviceProperties.apiVersion << "\n";
+        std::cout << "\t" << "Device Id: " << deviceProperties.deviceID << "\n";
+        std::cout << "\t" << "Device Name: " << deviceProperties.deviceName << "\n";
+        std::cout << "\t" << "Device Type: " << deviceProperties.deviceType << "\n";
+        std::cout << "\t" << "Driver Version: " << deviceProperties.driverVersion << "\n";
+        std::cout << "\t" << "Pipeline Cache UUID: " << deviceProperties.pipelineCacheUUID << "\n";
+        std::cout << "\t" << "Vendor Id: " << deviceProperties.vendorID << "\n";
+
+        QueueFamilyIndices indices = _findQueueFamilies(pDevice);
+        return indices.isComplete();
+    }
+
+
+    QueueFamilyIndices _findQueueFamilies(VkPhysicalDevice_T* pPhysicalDevice)
+    {
+        QueueFamilyIndices indices;
+        uint32_t queueFamilyCount = 0;
+        vkGetPhysicalDeviceQueueFamilyProperties(pPhysicalDevice, &queueFamilyCount, nullptr);
+        std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
+        vkGetPhysicalDeviceQueueFamilyProperties(pPhysicalDevice, &queueFamilyCount, queueFamilies.data());
+        std::cout << queueFamilyCount << "\n";
+        int i = 0;
+        for (const VkQueueFamilyProperties& queueFamily : queueFamilies) {
+            std::cout << "Queue family #" << i << ") " << queueFamily.queueCount << "\n";
+            if (queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT) {
+                indices.graphicsFamily = i;
+            }
+            if (indices.isComplete()) {
+                break;
+            }
+            i++;
+        }
+        return indices;
+    }
+
+
     void _mainLoop()
     {
         while (_isRunning) {
@@ -224,7 +303,7 @@ private:
 
     void _cleanup()
     {
-        //DestroyDebugUtilsMessenger(_pVkInstance, _pDebugMessenger, nullptr);
+        DestroyDebugUtilsMessenger(_pVkInstance, _pDebugMessenger, nullptr);
         vkDestroyInstance(_pVkInstance, nullptr);
         SDL_DestroyWindow(_pWindow);
         SDL_Quit();
@@ -238,8 +317,9 @@ private:
 
 private:
     SDL_Window* _pWindow = nullptr;
-    VkInstance_T* _pVkInstance = nullptr;
-    VkDebugUtilsMessengerEXT_T* _pDebugMessenger = nullptr;
+    VkInstance_T* _pVkInstance = VK_NULL_HANDLE;
+    VkDebugUtilsMessengerEXT_T* _pDebugMessenger = VK_NULL_HANDLE;
+    VkPhysicalDevice_T* _pPhysicalDevice = VK_NULL_HANDLE;
     const std::vector<const char*> _validationLayerNames = {
         "VK_LAYER_KHRONOS_validation"
     };
