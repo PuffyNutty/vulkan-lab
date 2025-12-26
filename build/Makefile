@@ -129,29 +129,29 @@ VulkanLab/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/build
 .PHONY : VulkanLab/fast
 
-src/main.o: src/main.cpp.o
-.PHONY : src/main.o
+src/customImplementation.o: src/customImplementation.cpp.o
+.PHONY : src/customImplementation.o
 
 # target to build an object file
-src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
+src/customImplementation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.o
+.PHONY : src/customImplementation.cpp.o
 
-src/main.i: src/main.cpp.i
-.PHONY : src/main.i
+src/customImplementation.i: src/customImplementation.cpp.i
+.PHONY : src/customImplementation.i
 
 # target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
+src/customImplementation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.i
+.PHONY : src/customImplementation.cpp.i
 
-src/main.s: src/main.cpp.s
-.PHONY : src/main.s
+src/customImplementation.s: src/customImplementation.cpp.s
+.PHONY : src/customImplementation.s
 
 # target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
+src/customImplementation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.s
+.PHONY : src/customImplementation.cpp.s
 
 # Help Target
 help:
@@ -162,9 +162,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... VulkanLab"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
+	@echo "... src/customImplementation.o"
+	@echo "... src/customImplementation.i"
+	@echo "... src/customImplementation.s"
 .PHONY : help
 
 

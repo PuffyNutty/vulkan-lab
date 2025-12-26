@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/VulkanLab.dir/src/main.cpp.o"
-  "CMakeFiles/VulkanLab.dir/src/main.cpp.o.d"
+  "CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.o"
+  "CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.o.d"
   "bin/VulkanLab"
   "bin/VulkanLab.pdb"
 )
