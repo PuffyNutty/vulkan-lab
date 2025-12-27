@@ -67,5 +67,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/VulkanLab.dir/DependInfo.cmake"
+  "CMakeFiles/VulkanLabCustomImplementation.dir/DependInfo.cmake"
+  "CMakeFiles/VulkanLabCopiedImplementation.dir/DependInfo.cmake"
   )
