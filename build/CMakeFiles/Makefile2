@@ -63,13 +63,11 @@ CMAKE_BINARY_DIR = /Users/patrickseweryn/Developer/Projects/VulkanLab/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/VulkanLabCustomImplementation.dir/all
-all: CMakeFiles/VulkanLabCopiedImplementation.dir/all
+all: CMakeFiles/VulkanLab.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
-codegen: CMakeFiles/VulkanLabCustomImplementation.dir/codegen
-codegen: CMakeFiles/VulkanLabCopiedImplementation.dir/codegen
+codegen: CMakeFiles/VulkanLab.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -77,73 +75,40 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/VulkanLabCustomImplementation.dir/clean
-clean: CMakeFiles/VulkanLabCopiedImplementation.dir/clean
+clean: CMakeFiles/VulkanLab.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/VulkanLabCustomImplementation.dir
+# Target rules for target CMakeFiles/VulkanLab.dir
 
 # All Build rule for target.
-CMakeFiles/VulkanLabCustomImplementation.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLabCustomImplementation.dir/build.make CMakeFiles/VulkanLabCustomImplementation.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLabCustomImplementation.dir/build.make CMakeFiles/VulkanLabCustomImplementation.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/patrickseweryn/Developer/Projects/VulkanLab/build/CMakeFiles --progress-num=3,4 "Built target VulkanLabCustomImplementation"
-.PHONY : CMakeFiles/VulkanLabCustomImplementation.dir/all
+CMakeFiles/VulkanLab.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/patrickseweryn/Developer/Projects/VulkanLab/build/CMakeFiles --progress-num=1,2 "Built target VulkanLab"
+.PHONY : CMakeFiles/VulkanLab.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/VulkanLabCustomImplementation.dir/rule: cmake_check_build_system
+CMakeFiles/VulkanLab.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/patrickseweryn/Developer/Projects/VulkanLab/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/VulkanLabCustomImplementation.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/VulkanLab.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/patrickseweryn/Developer/Projects/VulkanLab/build/CMakeFiles 0
-.PHONY : CMakeFiles/VulkanLabCustomImplementation.dir/rule
+.PHONY : CMakeFiles/VulkanLab.dir/rule
 
 # Convenience name for target.
-VulkanLabCustomImplementation: CMakeFiles/VulkanLabCustomImplementation.dir/rule
-.PHONY : VulkanLabCustomImplementation
+VulkanLab: CMakeFiles/VulkanLab.dir/rule
+.PHONY : VulkanLab
 
 # codegen rule for target.
-CMakeFiles/VulkanLabCustomImplementation.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLabCustomImplementation.dir/build.make CMakeFiles/VulkanLabCustomImplementation.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/patrickseweryn/Developer/Projects/VulkanLab/build/CMakeFiles --progress-num=3,4 "Finished codegen for target VulkanLabCustomImplementation"
-.PHONY : CMakeFiles/VulkanLabCustomImplementation.dir/codegen
+CMakeFiles/VulkanLab.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/patrickseweryn/Developer/Projects/VulkanLab/build/CMakeFiles --progress-num=1,2 "Finished codegen for target VulkanLab"
+.PHONY : CMakeFiles/VulkanLab.dir/codegen
 
 # clean rule for target.
-CMakeFiles/VulkanLabCustomImplementation.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLabCustomImplementation.dir/build.make CMakeFiles/VulkanLabCustomImplementation.dir/clean
-.PHONY : CMakeFiles/VulkanLabCustomImplementation.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/VulkanLabCopiedImplementation.dir
-
-# All Build rule for target.
-CMakeFiles/VulkanLabCopiedImplementation.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLabCopiedImplementation.dir/build.make CMakeFiles/VulkanLabCopiedImplementation.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLabCopiedImplementation.dir/build.make CMakeFiles/VulkanLabCopiedImplementation.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/patrickseweryn/Developer/Projects/VulkanLab/build/CMakeFiles --progress-num=1,2 "Built target VulkanLabCopiedImplementation"
-.PHONY : CMakeFiles/VulkanLabCopiedImplementation.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/VulkanLabCopiedImplementation.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/patrickseweryn/Developer/Projects/VulkanLab/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/VulkanLabCopiedImplementation.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/patrickseweryn/Developer/Projects/VulkanLab/build/CMakeFiles 0
-.PHONY : CMakeFiles/VulkanLabCopiedImplementation.dir/rule
-
-# Convenience name for target.
-VulkanLabCopiedImplementation: CMakeFiles/VulkanLabCopiedImplementation.dir/rule
-.PHONY : VulkanLabCopiedImplementation
-
-# codegen rule for target.
-CMakeFiles/VulkanLabCopiedImplementation.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLabCopiedImplementation.dir/build.make CMakeFiles/VulkanLabCopiedImplementation.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/patrickseweryn/Developer/Projects/VulkanLab/build/CMakeFiles --progress-num=1,2 "Finished codegen for target VulkanLabCopiedImplementation"
-.PHONY : CMakeFiles/VulkanLabCopiedImplementation.dir/codegen
-
-# clean rule for target.
-CMakeFiles/VulkanLabCopiedImplementation.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLabCopiedImplementation.dir/build.make CMakeFiles/VulkanLabCopiedImplementation.dir/clean
-.PHONY : CMakeFiles/VulkanLabCopiedImplementation.dir/clean
+CMakeFiles/VulkanLab.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/clean
+.PHONY : CMakeFiles/VulkanLab.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

@@ -117,61 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named VulkanLabCustomImplementation
+# Target rules for targets named VulkanLab
 
 # Build rule for target.
-VulkanLabCustomImplementation: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 VulkanLabCustomImplementation
-.PHONY : VulkanLabCustomImplementation
+VulkanLab: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 VulkanLab
+.PHONY : VulkanLab
 
 # fast build rule for target.
-VulkanLabCustomImplementation/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLabCustomImplementation.dir/build.make CMakeFiles/VulkanLabCustomImplementation.dir/build
-.PHONY : VulkanLabCustomImplementation/fast
-
-#=============================================================================
-# Target rules for targets named VulkanLabCopiedImplementation
-
-# Build rule for target.
-VulkanLabCopiedImplementation: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 VulkanLabCopiedImplementation
-.PHONY : VulkanLabCopiedImplementation
-
-# fast build rule for target.
-VulkanLabCopiedImplementation/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLabCopiedImplementation.dir/build.make CMakeFiles/VulkanLabCopiedImplementation.dir/build
-.PHONY : VulkanLabCopiedImplementation/fast
-
-src/copiedImplementation.o: src/copiedImplementation.cpp.o
-.PHONY : src/copiedImplementation.o
-
-# target to build an object file
-src/copiedImplementation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLabCopiedImplementation.dir/build.make CMakeFiles/VulkanLabCopiedImplementation.dir/src/copiedImplementation.cpp.o
-.PHONY : src/copiedImplementation.cpp.o
-
-src/copiedImplementation.i: src/copiedImplementation.cpp.i
-.PHONY : src/copiedImplementation.i
-
-# target to preprocess a source file
-src/copiedImplementation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLabCopiedImplementation.dir/build.make CMakeFiles/VulkanLabCopiedImplementation.dir/src/copiedImplementation.cpp.i
-.PHONY : src/copiedImplementation.cpp.i
-
-src/copiedImplementation.s: src/copiedImplementation.cpp.s
-.PHONY : src/copiedImplementation.s
-
-# target to generate assembly for a file
-src/copiedImplementation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLabCopiedImplementation.dir/build.make CMakeFiles/VulkanLabCopiedImplementation.dir/src/copiedImplementation.cpp.s
-.PHONY : src/copiedImplementation.cpp.s
+VulkanLab/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/build
+.PHONY : VulkanLab/fast
 
 src/customImplementation.o: src/customImplementation.cpp.o
 .PHONY : src/customImplementation.o
 
 # target to build an object file
 src/customImplementation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLabCustomImplementation.dir/build.make CMakeFiles/VulkanLabCustomImplementation.dir/src/customImplementation.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.o
 .PHONY : src/customImplementation.cpp.o
 
 src/customImplementation.i: src/customImplementation.cpp.i
@@ -179,7 +142,7 @@ src/customImplementation.i: src/customImplementation.cpp.i
 
 # target to preprocess a source file
 src/customImplementation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLabCustomImplementation.dir/build.make CMakeFiles/VulkanLabCustomImplementation.dir/src/customImplementation.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.i
 .PHONY : src/customImplementation.cpp.i
 
 src/customImplementation.s: src/customImplementation.cpp.s
@@ -187,7 +150,7 @@ src/customImplementation.s: src/customImplementation.cpp.s
 
 # target to generate assembly for a file
 src/customImplementation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLabCustomImplementation.dir/build.make CMakeFiles/VulkanLabCustomImplementation.dir/src/customImplementation.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.s
 .PHONY : src/customImplementation.cpp.s
 
 # Help Target
@@ -198,11 +161,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... VulkanLabCopiedImplementation"
-	@echo "... VulkanLabCustomImplementation"
-	@echo "... src/copiedImplementation.o"
-	@echo "... src/copiedImplementation.i"
-	@echo "... src/copiedImplementation.s"
+	@echo "... VulkanLab"
 	@echo "... src/customImplementation.o"
 	@echo "... src/customImplementation.i"
 	@echo "... src/customImplementation.s"
