@@ -129,29 +129,29 @@ VulkanLab/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/build
 .PHONY : VulkanLab/fast
 
-src/customImplementation.o: src/customImplementation.cpp.o
-.PHONY : src/customImplementation.o
+src/copiedImplementation.o: src/copiedImplementation.cpp.o
+.PHONY : src/copiedImplementation.o
 
 # target to build an object file
-src/customImplementation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.o
-.PHONY : src/customImplementation.cpp.o
+src/copiedImplementation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/src/copiedImplementation.cpp.o
+.PHONY : src/copiedImplementation.cpp.o
 
-src/customImplementation.i: src/customImplementation.cpp.i
-.PHONY : src/customImplementation.i
+src/copiedImplementation.i: src/copiedImplementation.cpp.i
+.PHONY : src/copiedImplementation.i
 
 # target to preprocess a source file
-src/customImplementation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.i
-.PHONY : src/customImplementation.cpp.i
+src/copiedImplementation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/src/copiedImplementation.cpp.i
+.PHONY : src/copiedImplementation.cpp.i
 
-src/customImplementation.s: src/customImplementation.cpp.s
-.PHONY : src/customImplementation.s
+src/copiedImplementation.s: src/copiedImplementation.cpp.s
+.PHONY : src/copiedImplementation.s
 
 # target to generate assembly for a file
-src/customImplementation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.s
-.PHONY : src/customImplementation.cpp.s
+src/copiedImplementation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VulkanLab.dir/build.make CMakeFiles/VulkanLab.dir/src/copiedImplementation.cpp.s
+.PHONY : src/copiedImplementation.cpp.s
 
 # Help Target
 help:
@@ -162,9 +162,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... VulkanLab"
-	@echo "... src/customImplementation.o"
-	@echo "... src/customImplementation.i"
-	@echo "... src/customImplementation.s"
+	@echo "... src/copiedImplementation.o"
+	@echo "... src/copiedImplementation.i"
+	@echo "... src/copiedImplementation.s"
 .PHONY : help
 
 

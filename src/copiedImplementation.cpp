@@ -67,6 +67,7 @@ private:
         _createInstance();
         _setupDebugMessenger();
         _pickPhysicalDevice();
+        _createLogicalDevice();
     }
 
 
@@ -93,6 +94,7 @@ private:
 
     void _cleanup()
     {
+        vkDestroyDevice(_device, nullptr);
         if (_enableValidationLayers) {
             DestroyDebugUtilsMessengerEXT(_instance, _debugMessenger, nullptr);
         }
@@ -282,14 +284,51 @@ private:
     }
 
 
+    void _createLogicalDevice()
+    {
+        QueueFamilyIndices indices = _findQueueFamilies(_physicalDevice);
+        VkDeviceQueueCreateInfo queueCreateInfo{};
+        queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+        queueCreateInfo.queueFamilyIndex = indices.graphicsFamily.value();
+        queueCreateInfo.queueCount = 1;
+        float queuePriority = 1.0f;
+        queueCreateInfo.pQueuePriorities = &queuePriority;
+
+        VkPhysicalDeviceFeatures physicalDeviceFeatures{}; // Initialise everything as VK_FALSE
+
+        VkDeviceCreateInfo createInfo{};
+        createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
+        createInfo.pQueueCreateInfos = &queueCreateInfo;
+        createInfo.queueCreateInfoCount = 1;
+        createInfo.pEnabledFeatures = &physicalDeviceFeatures;
+        createInfo.enabledExtensionCount = 0;
+        if (_enableValidationLayers) {
+            createInfo.enabledLayerCount = static_cast<uint32_t>(_validationLayers.size());
+            createInfo.ppEnabledLayerNames = _validationLayers.data();
+        } else {
+            createInfo.enabledLayerCount = 0;
+        }
+
+        VkResult deviceCreateResult = vkCreateDevice(_physicalDevice, &createInfo, nullptr, &_device);
+        if (deviceCreateResult != VK_SUCCESS) {
+            throw std::runtime_error("Failed to create logical device.\n");
+        }
+        vkGetDeviceQueue(_device, indices.graphicsFamily.value(), 0, &_graphicsQueue);
+
+        std::cout << "successfullly created logical device!\n";
+    }
+
+
 private:
     bool _isRunning = true;
     const uint32_t _windowWidth = 500;
     const uint32_t _windowHeight = 500;
     SDL_Window* _pWindow = nullptr;
-    VkInstance _instance;
-    VkDebugUtilsMessengerEXT _debugMessenger;
+    VkInstance _instance = VK_NULL_HANDLE;
+    VkDebugUtilsMessengerEXT _debugMessenger = VK_NULL_HANDLE;
     VkPhysicalDevice _physicalDevice = VK_NULL_HANDLE;
+    VkDevice _device = VK_NULL_HANDLE;
+    VkQueue _graphicsQueue = VK_NULL_HANDLE;
 
     const std::vector<const char*> _validationLayers = {
         "VK_LAYER_KHRONOS_validation"

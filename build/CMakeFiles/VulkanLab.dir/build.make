@@ -72,28 +72,28 @@ include CMakeFiles/VulkanLab.dir/flags.make
 CMakeFiles/VulkanLab.dir/codegen:
 .PHONY : CMakeFiles/VulkanLab.dir/codegen
 
-CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.o: CMakeFiles/VulkanLab.dir/flags.make
-CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.o: /Users/patrickseweryn/Developer/Projects/VulkanLab/src/customImplementation.cpp
-CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.o: CMakeFiles/VulkanLab.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/patrickseweryn/Developer/Projects/VulkanLab/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.o -MF CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.o.d -o CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.o -c /Users/patrickseweryn/Developer/Projects/VulkanLab/src/customImplementation.cpp
+CMakeFiles/VulkanLab.dir/src/copiedImplementation.cpp.o: CMakeFiles/VulkanLab.dir/flags.make
+CMakeFiles/VulkanLab.dir/src/copiedImplementation.cpp.o: /Users/patrickseweryn/Developer/Projects/VulkanLab/src/copiedImplementation.cpp
+CMakeFiles/VulkanLab.dir/src/copiedImplementation.cpp.o: CMakeFiles/VulkanLab.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/patrickseweryn/Developer/Projects/VulkanLab/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/VulkanLab.dir/src/copiedImplementation.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VulkanLab.dir/src/copiedImplementation.cpp.o -MF CMakeFiles/VulkanLab.dir/src/copiedImplementation.cpp.o.d -o CMakeFiles/VulkanLab.dir/src/copiedImplementation.cpp.o -c /Users/patrickseweryn/Developer/Projects/VulkanLab/src/copiedImplementation.cpp
 
-CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/patrickseweryn/Developer/Projects/VulkanLab/src/customImplementation.cpp > CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.i
+CMakeFiles/VulkanLab.dir/src/copiedImplementation.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/VulkanLab.dir/src/copiedImplementation.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/patrickseweryn/Developer/Projects/VulkanLab/src/copiedImplementation.cpp > CMakeFiles/VulkanLab.dir/src/copiedImplementation.cpp.i
 
-CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/patrickseweryn/Developer/Projects/VulkanLab/src/customImplementation.cpp -o CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.s
+CMakeFiles/VulkanLab.dir/src/copiedImplementation.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/VulkanLab.dir/src/copiedImplementation.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/patrickseweryn/Developer/Projects/VulkanLab/src/copiedImplementation.cpp -o CMakeFiles/VulkanLab.dir/src/copiedImplementation.cpp.s
 
 # Object files for target VulkanLab
 VulkanLab_OBJECTS = \
-"CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.o"
+"CMakeFiles/VulkanLab.dir/src/copiedImplementation.cpp.o"
 
 # External object files for target VulkanLab
 VulkanLab_EXTERNAL_OBJECTS =
 
-bin/VulkanLab: CMakeFiles/VulkanLab.dir/src/customImplementation.cpp.o
+bin/VulkanLab: CMakeFiles/VulkanLab.dir/src/copiedImplementation.cpp.o
 bin/VulkanLab: CMakeFiles/VulkanLab.dir/build.make
 bin/VulkanLab: /opt/homebrew/lib/libSDL3.0.dylib
 bin/VulkanLab: /usr/local/lib/libvulkan.dylib

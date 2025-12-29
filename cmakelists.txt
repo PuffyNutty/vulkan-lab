@@ -13,8 +13,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin) # The build director
 find_package(SDL3 REQUIRED)
 find_package(Vulkan REQUIRED)
 
-add_executable("${PROJECT_NAME}" src/customImplementation.cpp)
-#add_executable(${PROJECT_NAME} src/copiedImplementation.cpp)
+add_executable(${PROJECT_NAME} src/copiedImplementation.cpp)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
 target_link_libraries(${PROJECT_NAME} PRIVATE Vulkan::Vulkan)
