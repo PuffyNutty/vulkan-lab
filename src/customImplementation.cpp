@@ -71,20 +71,28 @@ void DestroyDebugUtilsMessengerEXT(VkInstance instance, VkDebugUtilsMessengerEXT
 }
 
 
+struct QueueFamilyIndices
+{
+    uint32_t graphicsFamily;
+    bool isComplete = false;
+};
+
+
 class VulkanEngine
 {
 public:
     VulkanEngine()
     {
         VkApplicationInfo appInfo{};
-        appInfo.apiVersion = VK_API_VERSION_1_0;
-        appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
-        appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
+        appInfo.apiVersion = VK_API_VERSION_1_1;
+        appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 2);
+        appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 2);
         appInfo.pApplicationName = "Vulkan Lab";
         appInfo.pEngineName = "Vulkan Engine";
         
         _createInstance(&appInfo);
         _createDebugMessenger();
+        _pickPhysicalDevice();
     }
 
 
@@ -135,7 +143,7 @@ private:
 
             debugMessengerCreateInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
             debugMessengerCreateInfo.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT| VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
-            debugMessengerCreateInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT| VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT;
+            debugMessengerCreateInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT;
             debugMessengerCreateInfo.pfnUserCallback = _debugCallback;
             debugMessengerCreateInfo.pUserData = nullptr;
 
@@ -212,9 +220,71 @@ private:
     }
 
 
+    void _pickPhysicalDevice()
+    {
+        uint32_t deviceCount;
+        vkEnumeratePhysicalDevices(_instance, &deviceCount, nullptr);
+        if (deviceCount == 0) {
+            std::cerr << "Failed to find GPUs with Vulkan support\n";
+            return;
+        }
+        std::vector<VkPhysicalDevice> devices(deviceCount);
+        vkEnumeratePhysicalDevices(_instance, &deviceCount, devices.data());
+
+        for (const VkPhysicalDevice& device : devices) {
+            if (_physicalDeviceIsSuitable(device)) {
+                _physicalDevice = device;
+            }
+        }
+
+        if (_physicalDevice == VK_NULL_HANDLE) {
+            std::cerr << "Failed to find a suitable GPU\n";
+            return;
+        }
+    }
+
+
+    bool _physicalDeviceIsSuitable(VkPhysicalDevice device)
+    {
+        VkPhysicalDeviceProperties2 properties;
+        properties.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROPERTIES_2;
+        vkGetPhysicalDeviceProperties2(device, &properties);
+        QueueFamilyIndices indices = _getQueueFamilies(device);
+        if (!indices.isComplete) {
+            return false;
+        }
+        std::cout << "The device " << properties.properties.deviceName << " is suitable.\n";
+        return true;
+    }
+
+
+    QueueFamilyIndices _getQueueFamilies(VkPhysicalDevice device)
+    {
+        QueueFamilyIndices indices{};
+
+        uint32_t queueFamilyCount = 0;
+        vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, nullptr);
+        std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
+        vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, queueFamilies.data());
+
+        uint32_t i = 0;
+        for (const VkQueueFamilyProperties& queueFamily : queueFamilies) {
+            if (queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT) {
+                indices.graphicsFamily = i;
+                indices.isComplete = true;
+                return indices;
+            }
+            i++;
+        }
+        std::cerr << "Unable to find suitable queue families\n";
+        return indices;
+    }
+
+
 private:
-    VkInstance _instance;
-    VkDebugUtilsMessengerEXT _debugMessenger;
+    VkInstance _instance = VK_NULL_HANDLE;
+    VkDebugUtilsMessengerEXT _debugMessenger = VK_NULL_HANDLE;
+    VkPhysicalDevice _physicalDevice = VK_NULL_HANDLE;
     std::vector<const char*> _validationLayerNames = {
         "VK_LAYER_KHRONOS_validation"
     };
