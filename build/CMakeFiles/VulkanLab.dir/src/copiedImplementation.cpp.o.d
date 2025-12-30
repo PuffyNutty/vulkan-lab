@@ -1023,6 +1023,8 @@ CMakeFiles/VulkanLab.dir/src/copiedImplementation.cpp.o: \
   /opt/homebrew/include/SDL3/SDL_version.h \
   /opt/homebrew/include/SDL3/SDL_oldnames.h \
   /opt/homebrew/include/SDL3/SDL_vulkan.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/set \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree \
   /usr/local/include/vulkan/vulkan.hpp \
   /usr/local/include/vulkan/vulkan_hpp_macros.hpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cassert \
