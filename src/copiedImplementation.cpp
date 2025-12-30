@@ -181,6 +181,7 @@ private:
         uint32_t SDLExtensionCount = 0;
         const char* const* ppSDLExtensionNames = SDL_Vulkan_GetInstanceExtensions(&SDLExtensionCount);
         std::vector<const char*> requiredExtensions(ppSDLExtensionNames, ppSDLExtensionNames + SDLExtensionCount);
+        requiredExtensions.push_back(VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME);
 
         if (_enableValidationLayers) {
             requiredExtensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
@@ -301,7 +302,19 @@ private:
         createInfo.pQueueCreateInfos = &queueCreateInfo;
         createInfo.queueCreateInfoCount = 1;
         createInfo.pEnabledFeatures = &physicalDeviceFeatures;
-        createInfo.enabledExtensionCount = 0;
+
+        uint32_t supportedExtensionCount = 0;
+        vkEnumerateDeviceExtensionProperties(_physicalDevice, nullptr, &supportedExtensionCount, nullptr);
+        std::vector<VkExtensionProperties> supportedExtensions(supportedExtensionCount);
+        vkEnumerateDeviceExtensionProperties(_physicalDevice, nullptr, &supportedExtensionCount, supportedExtensions.data());
+        std::cout << "\nAvailable device extensions:\n";
+        for (const VkExtensionProperties& extension : supportedExtensions) {
+            std::cout << "\t" << extension.extensionName << "\n";
+        }
+        const char* ppRequiredExtensions[1] = {"VK_KHR_portability_subset"};
+        createInfo.enabledExtensionCount = 1;
+        createInfo.ppEnabledExtensionNames = ppRequiredExtensions;
+
         if (_enableValidationLayers) {
             createInfo.enabledLayerCount = static_cast<uint32_t>(_validationLayers.size());
             createInfo.ppEnabledLayerNames = _validationLayers.data();
