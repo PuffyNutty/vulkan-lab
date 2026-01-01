@@ -477,7 +477,7 @@ private:
             createInfo.queueFamilyIndexCount = 2;
             createInfo.pQueueFamilyIndices = queueFamilyIndices;
         } else {
-            createInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
+            createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
             createInfo.queueFamilyIndexCount = 0; // optional.
             createInfo.pQueueFamilyIndices = nullptr; // optional.
         }
@@ -491,6 +491,15 @@ private:
         if (result != VK_SUCCESS) {
             throw std::runtime_error("Failed to create swapchain.\n");
         }
+
+        vkGetSwapchainImagesKHR(_device, _swapchain, &imageCount, nullptr);
+        _swapchainImages.resize(imageCount);
+        vkGetSwapchainImagesKHR(_device, _swapchain, &imageCount, _swapchainImages.data());
+
+        _swapchainImageFormat = surfaceFormat.format;
+        _swapchainExtent = extent;
+
+        std::cout << "successfully created swapchain!\n";
     }
 
 
@@ -507,6 +516,9 @@ private:
     VkQueue _graphicsQueue = VK_NULL_HANDLE;
     VkQueue _presentQueue = VK_NULL_HANDLE;
     VkSwapchainKHR _swapchain = VK_NULL_HANDLE;
+    std::vector<VkImage> _swapchainImages;
+    VkFormat _swapchainImageFormat;
+    VkExtent2D _swapchainExtent;
 
     const std::vector<const char*> _validationLayers = {
         "VK_LAYER_KHRONOS_validation"
