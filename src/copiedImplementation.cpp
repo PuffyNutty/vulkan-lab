@@ -85,6 +85,7 @@ private:
         _createLogicalDevice();
         _createSwapChain();
         _createImageViews();
+        _createRenderPass();
         _createGraphicsPipeline();
     }
 
@@ -113,6 +114,7 @@ private:
     void _cleanup()
     {
         vkDestroyPipelineLayout(_device, _pipelineLayout, nullptr);
+        vkDestroyRenderPass(_device, _renderPass, nullptr);
         for (const VkImageView imageView : _swapchainImageViews) {
             vkDestroyImageView(_device, imageView, nullptr);
         }
@@ -673,6 +675,41 @@ private:
     }
 
 
+    void _createRenderPass()
+    {
+        VkAttachmentDescription colorAttachment{};
+        colorAttachment.format = _swapchainImageFormat;
+        colorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
+        colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+        colorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+        colorAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+        colorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+        colorAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+        colorAttachment.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+
+        VkAttachmentReference colorAttachmentRef{};
+        colorAttachmentRef.attachment = 0;
+        colorAttachmentRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+        
+        VkSubpassDescription subpass{};
+        subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
+        subpass.colorAttachmentCount = 1;
+        subpass.pColorAttachments = &colorAttachmentRef;
+
+        VkRenderPassCreateInfo createInfo{};
+        createInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
+        createInfo.attachmentCount = 1;
+        createInfo.pAttachments = &colorAttachment;
+        createInfo.subpassCount = 1;
+        createInfo.pSubpasses = &subpass;
+
+        if (vkCreateRenderPass(_device, &createInfo, nullptr, &_renderPass) != VK_SUCCESS) {
+            throw std::runtime_error("Failed to create render pass");
+        }
+        std::cout << "successfully created Render pass!\n";
+    }
+
+
 private:
     bool _isRunning = true;
     const uint32_t _windowWidth = 500;
@@ -689,6 +726,7 @@ private:
     std::vector<VkImage> _swapchainImages;
     VkFormat _swapchainImageFormat;
     VkExtent2D _swapchainExtent;
+    VkRenderPass _renderPass;
     VkPipelineLayout _pipelineLayout;
 
     const std::vector<const char*> _validationLayers = {
@@ -724,16 +762,15 @@ int main()
 
 
 /*
-argndm::engine::Window window;
-argndm::gpu::Engine gpuEngine(&window, argndm::gpu::EnumGraphicsAPI::Vulkan);
+argndn::Window window("My Window", argndm::gpu::EnumGraphicsAPI::Vulkan);
+argndm::gpu::Engine gpuEngine(&window);
 argndm::ArgandPlane3D plane;
-argndm::MathFunction function("3x^3 + 2x + 1");
-argndm::gpu::RenderScene renderScene;
-argndm::gpu::ComputeScene computeScene;
+argndm::MathFunction function;
+
+function.buildFromStringExpression("ax^2 + bx + c");
 plane.addFunction(&function);
-computeScene.addFunction(&function);
-renderScene.addArgandPlane3D(&plane);
-gpuEngine.compute(&computeScene);
-gpuEngine.render(&renderScene);
-gpuEngine.clearFrame();
+gpuEngine.drawPlane(&plane) {
+    std::vector<argndm::utils::shaderStructs::GeneralVertexData> functionPlotsVertexData;
+    _vulkanEngine.defineVertexDataForFunctionPlots(&functionPlotsVertexData, &plane);
+}
 */
