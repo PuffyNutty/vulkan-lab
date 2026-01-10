@@ -87,6 +87,7 @@ private:
         _createImageViews();
         _createRenderPass();
         _createGraphicsPipeline();
+        _createFrameBuffers();
     }
 
 
@@ -113,6 +114,9 @@ private:
 
     void _cleanup()
     {
+        for (VkFramebuffer& frameBuffer : _swapchainFrameBuffers) {
+            vkDestroyFramebuffer(_device, frameBuffer, nullptr);
+        }
         vkDestroyPipeline(_device, _graphicsPipeline, nullptr);
         vkDestroyPipelineLayout(_device, _pipelineLayout, nullptr);
         vkDestroyRenderPass(_device, _renderPass, nullptr);
@@ -664,7 +668,7 @@ private:
 
         vkDestroyShaderModule(_device, vertShaderModule, nullptr);
         vkDestroyShaderModule(_device, fragShaderModule, nullptr);
-        std::cout << "Successfully created graphics pipeline!";
+        std::cout << "Successfully created graphics pipeline!\n";
     }
 
 
@@ -734,6 +738,29 @@ private:
     }
 
 
+    void _createFrameBuffers()
+    {
+        _swapchainFrameBuffers.resize(_swapchainImageViews.size());
+        for (size_t i = 0; i < _swapchainFrameBuffers.size(); i++) {
+            VkImageView attachments[] = {
+                _swapchainImageViews[i]
+            };
+            VkFramebufferCreateInfo createInfo{};
+            createInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+            createInfo.renderPass = _renderPass;
+            createInfo.attachmentCount = 1;
+            createInfo.pAttachments = attachments;
+            createInfo.width = _swapchainExtent.width;
+            createInfo.height = _swapchainExtent.height;
+            createInfo.layers = 1;
+            if (vkCreateFramebuffer(_device, &createInfo, nullptr, &_swapchainFrameBuffers[i]) != VK_SUCCESS) {
+               throw std::runtime_error("Failed to create framebuffer");
+            }
+        }
+        std::cout << "Successfully created frame buffers!\n";
+    }
+
+
 private:
     bool _isRunning = true;
     const uint32_t _windowWidth = 500;
@@ -763,6 +790,7 @@ private:
     };
 
     std::vector<VkImageView> _swapchainImageViews;
+    std::vector<VkFramebuffer> _swapchainFrameBuffers;
     
 #ifdef NDEBUG
     const bool _enableValidationLayers = false;
