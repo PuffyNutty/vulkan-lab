@@ -113,6 +113,7 @@ private:
 
     void _cleanup()
     {
+        vkDestroyPipeline(_device, _graphicsPipeline, nullptr);
         vkDestroyPipelineLayout(_device, _pipelineLayout, nullptr);
         vkDestroyRenderPass(_device, _renderPass, nullptr);
         for (const VkImageView imageView : _swapchainImageViews) {
@@ -639,8 +640,31 @@ private:
             throw std::runtime_error("Failed to create pipeline layout.\n");
         }
 
+        VkGraphicsPipelineCreateInfo pipelineInfo{};
+        pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+        pipelineInfo.stageCount = 2;
+        pipelineInfo.pStages = shaderStages;
+        pipelineInfo.pVertexInputState = &vertexInputInfo;
+        pipelineInfo.pInputAssemblyState = &inputAssembly;
+        pipelineInfo.pViewportState = &viewportState;
+        pipelineInfo.pRasterizationState = &rasterizer;
+        pipelineInfo.pMultisampleState = &multisampling;
+        pipelineInfo.pDepthStencilState = nullptr;
+        pipelineInfo.pColorBlendState = &colorBlending;
+        pipelineInfo.pDynamicState = &dynamicState;
+        pipelineInfo.layout = _pipelineLayout;
+        pipelineInfo.renderPass = _renderPass;
+        pipelineInfo.subpass = 0;
+        pipelineInfo.basePipelineHandle = VK_NULL_HANDLE;
+        pipelineInfo.basePipelineIndex = -1;
+
+        if (vkCreateGraphicsPipelines(_device, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &_graphicsPipeline) != VK_SUCCESS) {
+            throw std::runtime_error("Failed to create graphics pipeline\n");
+        }
+
         vkDestroyShaderModule(_device, vertShaderModule, nullptr);
         vkDestroyShaderModule(_device, fragShaderModule, nullptr);
+        std::cout << "Successfully created graphics pipeline!";
     }
 
 
@@ -728,6 +752,7 @@ private:
     VkExtent2D _swapchainExtent;
     VkRenderPass _renderPass;
     VkPipelineLayout _pipelineLayout;
+    VkPipeline _graphicsPipeline;
 
     const std::vector<const char*> _validationLayers = {
         "VK_LAYER_KHRONOS_validation"
